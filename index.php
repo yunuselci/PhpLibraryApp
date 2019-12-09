@@ -27,6 +27,14 @@ session_start();
         <div class="card">
             <div class="card-header">
                 <h3>Hoş Geldiniz</h3>
+                <?php if (count($errors > 0)): ?>
+                    <p>Error(s):</p>
+                    <ul>
+                        <?php foreach ($errors as $error): ?>
+                            <li><?= $error ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
             <div class="card-body">
                 <a class="g-button" href="sign_in.php">Giriş Yap</a>

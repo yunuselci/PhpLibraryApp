@@ -7,6 +7,7 @@ if (isset($_POST['submit'])) {
     $lastname = $_POST['lastname'] ?? null;
     $phone_number = $_POST['phone_number'] ?? null;
     $email = $_POST['email'] ?? null;
+    $errors_from_post = [];
     if (!$username) {
         array_push($errors_from_post, "Kullanıcı Adı");
     }if (!$password) {
