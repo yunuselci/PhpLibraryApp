@@ -13,12 +13,12 @@ class user
             $sql = "INSERT INTO users(firstname, lastname, email, username, password, phone_number)
                                VALUES(:firstname, :lastname, :email, :username, :password, :phone_number)";
             $query = $this->db->prepare($sql);
-            $query->bindValue(":firstname",$firstname);
-            $query->bindValue(":lastname",$lastname);
-            $query->bindValue(":email",$email);
-            $query->bindValue(":username",$username);
-            $query->bindValue(":password",$password);
-            $query->bindValue(":phone_number",$phone_number);
+            $query->bindParam(":firstname",$firstname);
+            $query->bindParam(":lastname",$lastname);
+            $query->bindParam(":email",$email);
+            $query->bindParam(":username",$username);
+            $query->bindParam(":password",$password);
+            $query->bindParam(":phone_number",$phone_number);
             $query->execute();
         }catch (PDOException $exception){
             array_push($errors,$exception->getMessage());
