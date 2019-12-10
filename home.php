@@ -1,5 +1,4 @@
 <?php
-
 include_once 'db_connect.php';
 if (!$user->is_logged_in()) {
     $user->redirect('index.php');
@@ -10,6 +9,7 @@ try {
     $query->bindParam(':id_users', $_SESSION['user_session']);
     $query->execute();
     $returned_row = $query->fetch(PDO::FETCH_ASSOC);
+
 } catch (PDOException $exception) {
     array_push($errors, $exception->getMessage());
 }
@@ -45,6 +45,7 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
                 <th>Email</th>
                 <th>Telefon Numarası</th>
                 <th>Sahip Olduğunuz Kitaplar</th>
+                <th>Şuan Elinizde Olan Kitaplar</th>
             </tr>
         </thead>
         <tbody>
@@ -62,10 +63,19 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
                 $page = $_GET['page'];
             }
             $starting_limit = ($page - 1) * $limit;
-            $show = "SELECT * FROM users ORDER BY id_users ASC LIMIT $limit";
+            $show = "SELECT * FROM users WHERE id_users=:id_users ORDER BY id_users ASC LIMIT $starting_limit,$limit";
             $r = $db_connect->prepare($show);
+            $r->bindParam(':id_users', $returned_row['id_users']);
             $r->execute();
-            while ($res = $r->fetch(PDO::FETCH_ASSOC)) :
+            $show_books = "SELECT * FROM books WHERE owner_id=:id_users ORDER BY id_books ASC LIMIT $starting_limit,$limit";
+            $rb = $db_connect->prepare($show_books);
+            $rb->bindParam('id_users',$returned_row['id_users']);
+            $rb->execute();
+            $show_books_temp = "SELECT * FROM books WHERE temp_owner_id=:id_users ORDER BY id_books ASC LIMIT $starting_limit,$limit";
+            $rbt = $db_connect->prepare($show_books_temp);
+            $rbt->bindParam('id_users',$returned_row['id_users']);
+            $rbt->execute();
+            while ($res = $r->fetch(PDO::FETCH_ASSOC) /*&& $resb = $rb->fetch(PDO::FETCH_ASSOC)*/) :
                 ?>
                 <tr>
                     <td><?php echo $res['id_users']; ?></td>
@@ -73,6 +83,31 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
                     <td><?php echo $res['lastname']; ?></td>
                     <td><?php echo $res['email']; ?></td>
                     <td><?php echo $res['phone_number']; ?></td>
+                </tr>
+            <?php
+            endwhile;
+            while ($resb = $rb->fetch(PDO::FETCH_ASSOC)) :
+                ?>
+                <tr>
+                    <td><?php echo $res['id_users']; ?></td>
+                    <td><?php echo $res['firstname']; ?></td>
+                    <td><?php echo $res['lastname']; ?></td>
+                    <td><?php echo $res['email']; ?></td>
+                    <td><?php echo $res['phone_number']; ?></td>
+                    <td><?php echo $resb['name']; ?></td>
+                </tr>
+            <?php
+            endwhile;
+            while ($resbt = $rbt->fetch(PDO::FETCH_ASSOC)) :
+                ?>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php echo $resbt['name']; ?></td>
                 </tr>
             <?php
             endwhile;
@@ -96,7 +131,7 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
         </thead>
         <tbody>
         <?php
-        $limit = 5;
+        $limit = 10;
         $query = "SELECT * FROM books";
         $s = $db_connect->prepare($query);
         $s->execute();
