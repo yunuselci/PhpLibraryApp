@@ -21,24 +21,24 @@ require_once 'db_connect.php';
 </head>
 
 <body>
-<div class="container">
-    <div class="d-flex justify-content-center h-100">
-        <div class="card">
-            <div class="card-header">
-                <h3>Hoş Geldiniz</h3>
-            </div>
-            <div class="card-body">
-                <a class="g-button" href="sign_in.php">Giriş Yap</a>
-                <br>
-                <br>
-                <a class="g-button" href="sign_up.php">Üye Ol</a>
-                <br>
-                <br>
-            </div>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Hoş Geldiniz</h3>
+                </div>
+                <div class="card-body">
+                    <a class="g-button" href="sign_in.php">Giriş Yap</a>
+                    <br>
+                    <br>
+                    <a class="g-button" href="sign_up.php">Üye Ol</a>
+                    <br>
+                    <br>
+                </div>
 
+            </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>

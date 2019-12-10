@@ -10,17 +10,23 @@ if (isset($_POST['submit'])) {
     $errors_from_post = [];
     if (!$username) {
         array_push($errors_from_post, "Kullanıcı Adı");
-    }if (!$password) {
+    }
+    if (!$password) {
         array_push($errors_from_post, "Şifre");
-    }if (!$firstname) {
+    }
+    if (!$firstname) {
         array_push($errors_from_post, "İsim");
-    }if (!$lastname) {
+    }
+    if (!$lastname) {
         array_push($errors_from_post, "Soy İsim");
-    }if (!$phone_number) {
+    }
+    if (!$phone_number) {
         array_push($errors_from_post, "Telefon Numarası");
-    }if (!$email) {
+    }
+    if (!$email) {
         array_push($errors_from_post, "Email");
-    }if (!$username || !$password || !$firstname || !$lastname || !$email || !$phone_number) {
+    }
+    if (!$username || !$password || !$firstname || !$lastname || !$email || !$phone_number) {
         /*$length = count($error_messages);
         for($i=0; $i<$length; $i++){
             echo $error_messages[$i]." Girmediniz".'<br>';
@@ -45,7 +51,7 @@ if (isset($_POST['submit'])) {
                 echo '<div class="alert alert-danger" role="alert"> E-Mail Adresi Zaten Mevcut<br>' . '</div>';
                 //array_push($errors, "E-Mail adresi zaten alınmış.Lütfen farklı bir tane seçin.");
             } else {
-                if ($user->register($firstname, $lastname, $email,$username,$password,$phone_number)) {
+                if ($user->register($firstname, $lastname, $email, $username, $password, $phone_number)) {
                     echo "Registered";
                 }
             }
@@ -78,77 +84,77 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-<div class="container">
-    <div class="d-flex justify-content-center h-100">
-        <div class="card">
-            <div class="card-header">
-                <h3>Kayıt Ol</h3>
-                <div class="d-flex justify-content-end social_icon">
-                    <span><i class="fab fa-facebook-square"></i></span>
-                    <span><i class="fab fa-google-plus-square"></i></span>
-                    <span><i class="fab fa-twitter-square"></i></span>
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Kayıt Ol</h3>
+                    <div class="d-flex justify-content-end social_icon">
+                        <span><i class="fab fa-facebook-square"></i></span>
+                        <span><i class="fab fa-google-plus-square"></i></span>
+                        <span><i class="fab fa-twitter-square"></i></span>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <form action="" method="post">
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <div class="card-body">
+                    <form action="" method="post">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı" required>
                         </div>
-                        <input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı" required>
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" class="form-control" name="password" placeholder="Şifre" required>
+
                         </div>
-                        <input type="password" class="form-control" name="password" placeholder="Şifre" required>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="firstname" placeholder="İsim" required>
 
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="firstname" placeholder="İsim" required>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="lastname" placeholder="Soyisim" required>
 
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="lastname" placeholder="Soyisim" required>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="phone_number" placeholder="Telefon Numaranız" required>
 
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="phone_number" placeholder="Telefon Numaranız" required>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                            </div>
+                            <input type="email" class="form-control" name="email" placeholder="E-Mail" required>
 
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <input type="email" class="form-control" name="email" placeholder="E-Mail" required>
 
-                    </div>
-
-                    <div class="row align-items-center remember">
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="submit" value="Kayıt Ol" class="btn float-right login_btn">
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-center links">
-                    <a href="sign_in.php">Giriş Yap</a>
+                        <div class="row align-items-center remember">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" value="Kayıt Ol" class="btn float-right login_btn">
+                        </div>
+                    </form>
                 </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        <a href="sign_in.php">Giriş Yap</a>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>
