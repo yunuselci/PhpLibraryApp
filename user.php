@@ -25,29 +25,67 @@ class user
             array_push($errors,$exception->getMessage());
         }
     }
-    public function update($users_id,$firstname,$lastname,$email,$username,$password,$phone_number){
-        try{
-
-            $user_hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $sql = "UPDATE users SET firstname =:firstname, lastname=:lastname, email=:email,username=:username,password=:password,phone_number=:phone_number
-                    WHERE users_id=$users_id";
-            $query = $this->db->prepare($sql);
-            $query->bindParam(":firstname",$firstname);
-            $query->bindParam(":lastname",$lastname);
-            $query->bindParam(":email",$email);
-            $query->bindParam(":username",$username);
-            $query->bindParam(":password", $user_hashed_password);
-            $query->bindParam(":phone_number",$phone_number);
-            $query->execute();
-        }catch (PDOException $exception){
-            array_push($errors,$exception->getMessage());
-        }
-    }
     public function updateUsername($username,$id_users){
         try {
             $sql = "UPDATE users SET username =:username WHERE id_users=:id_users";
             $query = $this->db->prepare($sql);
             $query->bindParam(":username", $username);
+            $query->bindParam(":id_users", $id_users);
+            $query->execute();
+        }catch (PDOException $exception){
+            array_push($errors,$exception->getMessage());
+        }
+    }
+    public function updatePassword($password,$id_users){
+        try {
+            $user_hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET password =:password WHERE id_users=:id_users";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":password", $user_hashed_password);
+            $query->bindParam(":id_users", $id_users);
+            $query->execute();
+        }catch (PDOException $exception){
+            array_push($errors,$exception->getMessage());
+        }
+    }
+    public function updateFirstname($firstname,$id_users){
+        try {
+            $sql = "UPDATE users SET firstname =:firstname WHERE id_users=:id_users";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":firstname", $firstname);
+            $query->bindParam(":id_users", $id_users);
+            $query->execute();
+        }catch (PDOException $exception){
+            array_push($errors,$exception->getMessage());
+        }
+    }
+    public function updateLastname($lastname,$id_users){
+        try {
+            $sql = "UPDATE users SET lastname =:lastname WHERE id_users=:id_users";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":lastname", $lastname);
+            $query->bindParam(":id_users", $id_users);
+            $query->execute();
+        }catch (PDOException $exception){
+            array_push($errors,$exception->getMessage());
+        }
+    }
+    public function updatePhone_number($phone_number,$id_users){
+        try {
+            $sql = "UPDATE users SET phone_number =:phone_number WHERE id_users=:id_users";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":phone_number", $phone_number);
+            $query->bindParam(":id_users", $id_users);
+            $query->execute();
+        }catch (PDOException $exception){
+            array_push($errors,$exception->getMessage());
+        }
+    }
+    public function updateEmail($email,$id_users){
+        try {
+            $sql = "UPDATE users SET email =:email WHERE id_users=:id_users";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":email", $email);
             $query->bindParam(":id_users", $id_users);
             $query->execute();
         }catch (PDOException $exception){
