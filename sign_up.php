@@ -39,9 +39,11 @@ if (isset($_POST['submit'])) {
             $query->execute();
             $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
             if ($returned_clashes_row['username'] == $username) {
-                array_push($errors, "Kullanıcı adı zaten alınmış.Lütfen farklı bir tane seçin.");
+                echo '<div class="alert alert-danger" role="alert"> Kullanıcı Adı Zaten Alınmış<br>' . '</div>';
+                //array_push($errors, "Kullanıcı adı zaten alınmış.Lütfen farklı bir tane seçin.");
             } elseif ($returned_clashes_row['email'] == $email) {
-                array_push($errors, "E-Mail adresi zaten alınmış.Lütfen farklı bir tane seçin.");
+                echo '<div class="alert alert-danger" role="alert"> E-Mail Adresi Zaten Mevcut<br>' . '</div>';
+                //array_push($errors, "E-Mail adresi zaten alınmış.Lütfen farklı bir tane seçin.");
             } else {
                 if ($user->register($firstname, $lastname, $email,$username,$password,$phone_number)) {
                     echo "Registered";

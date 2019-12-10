@@ -1,17 +1,15 @@
 <?php
-
 require_once 'db_connect.php';
 
 if (isset($_POST['submit'])) {
     $username = $_POST['username'] ?? null;
     $password = $_POST['password'] ?? null;
-    $email = $_POST['email'] ?? null;
     if (!$username) {
         echo 'Kullanıcı Adı giriniz!';
     } elseif (!$password) {
         echo 'Şifre giriniz!';
     } else {
-        if($user->login($email,$username,$password)){
+        if($user->login($username,$password)){
             $user->redirect('home.php');
         }else{
             array_push($errors,"Yanlış kullanıcı adı veya şifre.");
@@ -66,13 +64,6 @@ if (isset($_POST['submit'])) {
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı" >
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                        </div>
-                        <input type="email" class="form-control" name="email" placeholder="E-Mail" >
-
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
