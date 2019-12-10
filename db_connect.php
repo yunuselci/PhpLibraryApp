@@ -2,7 +2,7 @@
 session_start();
 
 include_once 'user.php';
-
+include_once 'book.php';
 $errors = [];
 
 $db_host = 'localhost';
@@ -17,3 +17,4 @@ try {
     array_push($errors, $exception->getMessage());
 }
 $user = new User($db_connect);
+$book = new Book($db_connect);
