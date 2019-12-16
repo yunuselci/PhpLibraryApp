@@ -18,7 +18,7 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
     $user->redirect('index.php');
 }
 
-if(isset($_POST['takebook'])){
+if (isset($_POST['takebook'])) {
     $id_books = $_POST['id'];
     $id_user = $returned_row['id_users'];
     try {
@@ -27,7 +27,7 @@ if(isset($_POST['takebook'])){
         $query->bindParam(':id_books', $id_books);
         $query->execute();
         $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
-        if ($book->takeBook($id_user,$id_books)) {
+        if ($book->takeBook($id_user, $id_books)) {
             echo "updated";
         }
     } catch (PDOException $exception) {
@@ -80,7 +80,7 @@ if(isset($_POST['takebook'])){
         $page = $_GET['page'];
     }
     $starting_limit = ($page - 1) * $limit;
-    $show = "SELECT users.*, b1.*, b2.*, b1.name AS books_owner_name, b2.name AS books_temp_owner_id FROM users 
+    $show = "SELECT users.*, b1.*, b2.*, b1.name AS books_owner_name, b2.name AS books_temp_owner FROM users 
                                    LEFT JOIN books AS b1 ON (users.id_users=b1.owner_id)
                                    LEFT JOIN books AS b2 ON (users.id_users=b2.temp_owner_id)  
                                                  WHERE users.id_users=:id_users 
@@ -88,28 +88,20 @@ if(isset($_POST['takebook'])){
     $r = $db_connect->prepare($show);
     $r->bindParam(':id_users', $returned_row['id_users']);
     $r->execute();
-    /*
-    $show_books = "SELECT * FROM books WHERE owner_id=:id_users ORDER BY id_books ASC LIMIT $starting_limit,$limit";
-    $rb = $db_connect->prepare($show_books);
-    $rb->bindParam('id_users', $returned_row['id_users']);
-    $rb->execute();
-    $show_books_temp = "SELECT * FROM books WHERE temp_owner_id=:id_users ORDER BY id_books ASC LIMIT $starting_limit,$limit";
-    $rbt = $db_connect->prepare($show_books_temp);
-    $rbt->bindParam('id_users', $returned_row['id_users']);
-    $rbt->execute();*/
-    while ($res = $r->fetch(PDO::FETCH_ASSOC)) :
+    foreach ($r->fetch(PDO::FETCH_OBJ) as $item) {
         ?>
         <tr>
-            <td><?php echo $res['id_users']; ?></td>
-            <td><?php echo $res['firstname']; ?></td>
-            <td><?php echo $res['lastname']; ?></td>
-            <td><?php echo $res['email']; ?></td>
-            <td><?php echo $res['phone_number']; ?></td>
-            <td><?php echo $res['name']; ?></td>
-            <td><?php echo $res['name']; ?></td>
+            <td><?php echo $item["users.id_users"]; ?></td>
+            <td><?php echo $item["users.firstname"]; ?></td>
+            <td><?php echo $item["users.lastname"]; ?></td>
+            <td><?php echo $item["users.email"]; ?></td>
+            <td><?php echo $item["users.phone_number"]; ?></td>
+            <td><?php echo $item["books_owner_name"]; ?></td>
+            <td><?php echo $item["books_temp_owner_name"]; ?></td>
         </tr>
-    <?php
-    endwhile;
+        <?php
+    }
+
 
     for ($page = 1; $page <= $total_pages; $page++) : ?>
         <a href='<?php echo "?page=$page"; ?>' class="btn float login_btn"><?php echo $page; ?>
