@@ -27,6 +27,18 @@ class book
             array_push($errors, $exception->getMessage());
         }
     }
+    public function takeBook($temp_owner_id,$id_books){
+        try {
+            $sql = "UPDATE books SET temp_owner_id =:temp_owner_id WHERE id_books=:id_books";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":temp_owner_id", $temp_owner_id);
+            $query->bindParam(":id_books", $id_books);
+            $query->execute();
+        }catch (PDOException $exception) {
+            array_push($errors, $exception->getMessage());
+        }
+
+    }
 }
 
 
