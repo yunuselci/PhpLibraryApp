@@ -4,7 +4,7 @@ if (!$user->is_logged_in()) {
     $user->redirect('index.php');
 }
 try {
-    $sql = "SELECT * FROM users WHERE id_users=:id_users";
+    $sql = "SELECT * FROM users";
     $query = $db_connect->prepare($sql);
     $query->bindParam(':id_users', $_SESSION['user_session']);
     $query->execute();
@@ -93,11 +93,11 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
     while ($resb = $rb->fetch(PDO::FETCH_ASSOC)) :
         ?>
         <tr>
-            <td><?php echo $res['id_users']; ?></td>
-            <td><?php echo $res['firstname']; ?></td>
-            <td><?php echo $res['lastname']; ?></td>
-            <td><?php echo $res['email']; ?></td>
-            <td><?php echo $res['phone_number']; ?></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td><?php echo $resb['name']; ?></td>
             <td></td>
 
@@ -149,7 +149,7 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
         $page = $_GET['page'];
     }
     $starting_limit = ($page - 1) * $limit;
-    $show = "SELECT * FROM books ORDER BY id_books ASC LIMIT $starting_limit, $limit";
+    $show = "SELECT * FROM books INNER JOIN users ON books.owner_id = users.id_users ORDER BY id_books ASC LIMIT $starting_limit, $limit";
     $r = $db_connect->prepare($show);
     $r->execute();
     while ($res = $r->fetch(PDO::FETCH_ASSOC)) :
@@ -159,9 +159,23 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
             <td><?php echo $res['name']; ?></td>
             <td><?php echo $res['author']; ?></td>
             <td><?php echo $res['language']; ?></td>
-            <td><?php echo $res['owner_id']; ?></td>
-            <td><?php echo $res['temp_owner_id']; ?></td>
-
+            <td><?php echo $res['firstname']; ?><button>Kitabı Al</button></td>
+            <td></td>
+        </tr>
+    <?php
+    endwhile;
+    $show_temp_owner = "SELECT * FROM books INNER JOIN users ON books.temp_owner_id = users.id_users ORDER BY id_books ASC LIMIT $starting_limit, $limit";
+    $r = $db_connect->prepare($show_temp_owner);
+    $r->execute();
+    while ($res = $r->fetch(PDO::FETCH_ASSOC)) :
+        ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><?php echo $res['firstname']; ?></td>
         </tr>
     <?php
     endwhile;
