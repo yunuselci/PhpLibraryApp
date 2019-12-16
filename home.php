@@ -68,7 +68,7 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
     $r = $db_connect->prepare($show);
     $r->bindParam(':id_users', $returned_row['id_users']);
     $r->execute();
-    $show_books = "SELECT * FROM books WHERE owner_id=:id_usersORDER BY id_books ASC LIMIT $starting_limit,$limit";
+    $show_books = "SELECT * FROM books WHERE owner_id=:id_users ORDER BY id_books ASC LIMIT $starting_limit,$limit";
     $rb = $db_connect->prepare($show_books);
     $rb->bindParam('id_users', $returned_row['id_users']);
     $rb->execute();
