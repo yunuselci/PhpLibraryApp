@@ -88,16 +88,16 @@ if (isset($_POST['takebook'])) {
     $r = $db_connect->prepare($show);
     $r->bindParam(':id_users', $returned_row['id_users']);
     $r->execute();
-    foreach ($r->fetch(PDO::FETCH_OBJ) as $item) {
+    foreach ($r->fetchAll(PDO::FETCH_ASSOC) as $item) {
         ?>
         <tr>
-            <td><?php echo $item["users.id_users"]; ?></td>
-            <td><?php echo $item["users.firstname"]; ?></td>
-            <td><?php echo $item["users.lastname"]; ?></td>
-            <td><?php echo $item["users.email"]; ?></td>
-            <td><?php echo $item["users.phone_number"]; ?></td>
+            <td><?php echo $item["id_users"]; ?></td>
+            <td><?php echo $item["firstname"]; ?></td>
+            <td><?php echo $item["lastname"]; ?></td>
+            <td><?php echo $item["email"]; ?></td>
+            <td><?php echo $item["phone_number"]; ?></td>
             <td><?php echo $item["books_owner_name"]; ?></td>
-            <td><?php echo $item["books_temp_owner_name"]; ?></td>
+            <td><?php echo $item["books_temp_owner"]; ?></td>
         </tr>
         <?php
     }
