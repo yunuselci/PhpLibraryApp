@@ -133,6 +133,7 @@ class user
         if (isset($_SESSION['user_session'])) {
             return true;
         }
+        return false;
     }
 
     public function redirect($url)
