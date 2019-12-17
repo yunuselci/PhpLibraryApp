@@ -1,4 +1,9 @@
 <?php
+function redirect($url)
+{
+    header("Location: $url");
+}
+
 session_start();
 
 include_once 'user.php';

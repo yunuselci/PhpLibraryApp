@@ -1,7 +1,8 @@
 <?php
 include_once 'db_connect.php';
+
 if (!$user->is_logged_in()) {
-    $user->redirect('index.php');
+    redirect('index.php');
 }
 try {
     $sql = "SELECT * FROM users WHERE id_users=:id_users";

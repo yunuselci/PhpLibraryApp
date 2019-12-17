@@ -136,10 +136,6 @@ class user
         return false;
     }
 
-    public function redirect($url)
-    {
-        header("Location: $url");
-    }
 
     public function log_out()
     {
