@@ -16,7 +16,7 @@ try {
 }
 if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
     $user->log_out();
-    $user->redirect('index.php');
+    redirect('index.php');
 }
 
 if (isset($_POST['takebook_id'])) {

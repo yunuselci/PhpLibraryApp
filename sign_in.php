@@ -10,13 +10,12 @@ if (isset($_POST['submit'])) {
         echo 'Şifre giriniz!';
     } else {
         if ($user->login($username, $password)) {
+            redirect('home.php');
         } else {
             array_push($errors, "Yanlış kullanıcı adı veya şifre.");
         }
     }
 }
-
-
 ?>
 
 
