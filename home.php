@@ -18,8 +18,8 @@ if (isset($_GET['logout']) && ($_GET['logout'] == 'true')) {
     $user->redirect('index.php');
 }
 
-if (isset($_POST['takebook'])) {
-    $id_books = $_POST['id'];
+if (isset($_POST['takebook_id'])) {
+    $id_books = $_POST['takebook_id'];
     $id_user = $returned_row['id_users'];
     try {
         $sql = "SELECT temp_owner_id FROM books WHERE id_books=:id_books";
@@ -51,6 +51,19 @@ if (isset($_POST['takebook'])) {
 <p>Welcome, <?= $returned_row['username']; ?>. <a href="?logout=true">Log out</a></p>
 <p>Kullanıcı Bilgilerini <a href="change.php">Düzenle!</a></p>
 <p>Kitap <a href="add_book.php">Ekle!</a></p>
+<form action="" method="post">
+    <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        <input type="text" class="form-control" name="takebook_id" placeholder="Almak Istediginiz Kitap ID" required>
+    </div>
+    <div class="row align-items-center remember">
+    </div>
+    <div class="form-group">
+        <input type="submit" name="submit" value="Kitabı Al" class="btn float-right login_btn">
+    </div>
+</form>
 
 
 </table>
@@ -135,42 +148,26 @@ if (isset($_POST['takebook'])) {
         $page = $_GET['page'];
     }
     $starting_limit = ($page - 1) * $limit;
-    $show = "SELECT * FROM books INNER JOIN users ON books.owner_id = users.id_users ORDER BY id_books ASC LIMIT $starting_limit, $limit";
+    $show = "SELECT books.*, u1.*, u2.*, u1.firstname AS owner_firstname, u2.firstname AS temp_owner_firstname FROM books 
+                                   LEFT JOIN users AS u1 ON (books.owner_id=u1.id_users)
+                                   LEFT JOIN users AS u2 ON (books.temp_owner_id=u2.id_users)  
+                                                 ORDER BY books.id_books ASC LIMIT $starting_limit,$limit";
     $r = $db_connect->prepare($show);
+    $r->bindParam(':id_users', $returned_row['id_users']);
     $r->execute();
-    while ($res = $r->fetch(PDO::FETCH_ASSOC)) :
+    foreach ($r->fetchAll(PDO::FETCH_ASSOC) as $item) {
         ?>
         <tr>
-            <td><?php echo $res['id_books']; ?></td>
-            <td><?php echo $res['name']; ?></td>
-            <td><?php echo $res['author']; ?></td>
-            <td><?php echo $res['language']; ?></td>
-            <td><?php echo $res['firstname']; ?>
-                <form action="" method="post">
-                    <input type="hidden" name="takebook" value="1">
-                    <input type="hidden" name="id" value="<?php echo $res['id_books']; ?>">
-                    <button type="submit" class="btn login_btn">Kitabı Al</button>
-                </form>
-            </td>
-            <td></td>
+            <td><?php echo $item["id_books"]; ?></td>
+            <td><?php echo $item["name"]; ?></td>
+            <td><?php echo $item["author"]; ?></td>
+            <td><?php echo $item["language"]; ?></td>
+            <td><?php echo $item["owner_firstname"]; ?></td>
+            <td><?php echo $item["temp_owner_firstname"]; ?></td>
         </tr>
-    <?php
-    endwhile;
-    $show_temp_owner = "SELECT * FROM books INNER JOIN users ON books.temp_owner_id = users.id_users ORDER BY id_books ASC LIMIT $starting_limit, $limit";
-    $r = $db_connect->prepare($show_temp_owner);
-    $r->execute();
-    while ($res = $r->fetch(PDO::FETCH_ASSOC)) :
-        ?>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><?php echo $res['firstname']; ?></td>
-        </tr>
-    <?php
-    endwhile;
+        <?php
+    }
+
     for ($page = 1; $page <= $total_pages; $page++) : ?>
         <a href='<?php echo "?page=$page"; ?>' class="btn float login_btn"><?php echo $page; ?>
         </a>

@@ -32,8 +32,8 @@ if (isset($_POST['submit'])) {
         }
     } else {
         try {
-                if ($book->add($name, $author, $image_url, $language, $owner_id, $temp_owner_id)) {
-                    echo "Registered";
+            if ($book->add($name, $author, $image_url, $language, $owner_id, $temp_owner_id)) {
+                echo "Registered";
             }
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
@@ -54,80 +54,85 @@ if (isset($_POST['submit'])) {
     <!--Made with love by Mutiullah Samim -->
 
     <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!--Custom styles-->
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="d-flex justify-content-center h-100">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Kitap Ekle,Tüm Alanlar Zorunludur</h3>
-                </div>
-                <div class="card-body">
-                    <form action="" method="post">
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="name" placeholder="Kitap İsmi" required>
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3>Kitap Ekle,Tüm Alanlar Zorunludur</h3>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="author" placeholder="Yazarı" required>
+                        <input type="text" class="form-control" name="name" placeholder="Kitap İsmi" required>
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="author" placeholder="Yazarı" required>
 
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="image_url" placeholder="Kitap Resmi İçin Link" required>
+                        <input type="text" class="form-control" name="image_url" placeholder="Kitap Resmi İçin Link"
+                               required>
 
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="language" placeholder="Kitap dili" required>
+                        <input type="text" class="form-control" name="language" placeholder="Kitap dili" required>
 
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="owner_id" placeholder="Kitap sahibinin ID'si" required>
+                        <input type="text" class="form-control" name="owner_id" placeholder="Kitap sahibinin ID'si"
+                               required>
 
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="temp_owner_id" placeholder="Kitap Şuan Kimde ?(ID)" required>
+                        <input type="text" class="form-control" name="temp_owner_id"
+                               placeholder="Kitap Şuan Kimde ?(ID)" required>
 
-                        </div>
-
-                        <div class="row align-items-center remember">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="submit" value="Ekle" class="btn float-right login_btn">
-                        </div>
-                    </form>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-center links">
-                        <a href="home.php">Geri Dön</a>
                     </div>
 
+                    <div class="row align-items-center remember">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" value="Ekle" class="btn float-right login_btn">
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+                    <a href="home.php">Geri Dön</a>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </body>

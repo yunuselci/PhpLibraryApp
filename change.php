@@ -148,97 +148,104 @@ if (isset($_POST['email'])) {
 <head>
     <title>Sign Up Page</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="d-flex justify-content-center h-100">
-            <div class="card">
-                <div class="card-header">
-                    <h3><?= $returned_row['username']; ?> İçin Yeni Bilgileri Giriniz</h3>
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+        <div class="card">
+            <div class="card-header">
+                <h3><?= $returned_row['username']; ?> İçin Yeni Bilgileri Giriniz</h3>
 
-                </div>
-                <div class="card-body">
-                    <form action="" method="post">
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="username" placeholder="<?= $returned_row['username']; ?>">
-                            <div class="form-group">
-                                <input type="submit" name="Güncelle" value="Güncelle" class="btn float-right login_btn">
-                            </div>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" class="form-control" name="password" placeholder="Yeni Şifre">
-                            <div class="form-group">
-                                <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                            </div>
-
+                        <input type="text" class="form-control" name="username"
+                               placeholder="<?= $returned_row['username']; ?>">
+                        <div class="form-group">
+                            <input type="submit" name="Güncelle" value="Güncelle" class="btn float-right login_btn">
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="firstname" placeholder="<?= $returned_row['firstname']; ?>">
-                            <div class="form-group">
-                                <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                            </div>
-
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="lastname" placeholder="<?= $returned_row['lastname']; ?>">
-                            <div class="form-group">
-                                <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                            </div>
-
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="phone_number" placeholder="<?= $returned_row['phone_number']; ?>">
-                            <div class="form-group">
-                                <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                            </div>
-
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                            </div>
-                            <input type="email" class="form-control" name="email" placeholder="<?= $returned_row['email']; ?>">
-                            <div class="form-group">
-                                <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                            </div>
-
+                        <input type="password" class="form-control" name="password" placeholder="Yeni Şifre">
+                        <div class="form-group">
+                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
                         </div>
 
-                        <div class="row align-items-center remember">
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="firstname"
+                               placeholder="<?= $returned_row['firstname']; ?>">
+                        <div class="form-group">
+                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
                         </div>
 
-                    </form>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-center links">
-                        <a href="home.php">Anasayfan</a>
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="lastname"
+                               placeholder="<?= $returned_row['lastname']; ?>">
+                        <div class="form-group">
+                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                        </div>
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        <input type="text" class="form-control" name="phone_number"
+                               placeholder="<?= $returned_row['phone_number']; ?>">
+                        <div class="form-group">
+                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                        </div>
+
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                        </div>
+                        <input type="email" class="form-control" name="email"
+                               placeholder="<?= $returned_row['email']; ?>">
+                        <div class="form-group">
+                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                        </div>
+
                     </div>
 
+                    <div class="row align-items-center remember">
+                    </div>
+
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center links">
+                    <a href="home.php">Anasayfan</a>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
