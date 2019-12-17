@@ -35,6 +35,10 @@ if (isset($_POST['takebook_id'])) {
         array_push($errors, $exception->getMessage());
     }
 }
+if (isset($_POST['bookName'])) {
+    $bookName = $_POST['bookName'];
+    $book->searchBook($bookName);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -65,6 +69,7 @@ if (isset($_POST['takebook_id'])) {
         <input type="submit" name="submit" value="Kitabı Al" class="btn float-right login_btn">
     </div>
 </form>
+
 
 
 </table>
@@ -123,6 +128,19 @@ if (isset($_POST['takebook_id'])) {
     <?php endfor; ?>
     </tbody>
 </table>
+<form action="" method="post">
+    <div class="input-group form-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        <input type="text" class="form-control" name="bookName" placeholder="Kitap arama(ismi ile)" required>
+    </div>
+    <div class="row align-items-center remember">
+    </div>
+    <div class="form-group">
+        <input type="submit" name="submit" value="Ara" class="btn float-right login_btn">
+    </div>
+</form>
 </table>
 <table class="table table-striped">
     <thead>

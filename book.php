@@ -39,7 +39,21 @@ class book
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
+    }
 
+    public function searchBook($bookName)
+    {
+        try {
+            $sql = "SELECT * FROM books WHERE name LIKE :keyword";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(":keyword", $bookName);
+            $query->execute();
+            while ($r = $query->fetch(PDO::FETCH_ASSOC)) {
+                echo "<h3>" . print_r($r, true) . "</h3>";
+            }
+        } catch (PDOException $exception) {
+            array_push($errors, $exception->getMessage());
+        }
     }
 }
 
