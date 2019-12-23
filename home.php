@@ -1,6 +1,8 @@
 <?php
 include_once 'db_connect.php';
 
+use Carbon\Carbon;
+
 if (!$user->is_logged_in()) {
     redirect('index.php');
 }
@@ -52,7 +54,7 @@ if (isset($_POST['bookName'])) {
 </head>
 
 <body>
-<h1>Home</h1>
+<h1>Giriş, <?= printf("Şuan Tarih: %s", Carbon::now()); ?></h1>
 <p>Welcome, <?= $returned_row['username']; ?>. <a href="?logout=true">Log out</a></p>
 <p>Kullanıcı Bilgilerini <a href="change.php">Düzenle!</a></p>
 <p>Kitap <a href="add_book.php">Ekle!</a></p>
@@ -69,7 +71,6 @@ if (isset($_POST['bookName'])) {
         <input type="submit" name="submit" value="Kitabı Al" class="btn float-right login_btn">
     </div>
 </form>
-
 
 
 </table>
