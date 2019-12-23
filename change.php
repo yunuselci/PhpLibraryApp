@@ -12,7 +12,7 @@ try {
 }
 if (isset($_POST['username'])) {
     $username = $_POST['username'] ?? null;
-    if (empty($username)) {
+    if (!$username) {
         echo '<div class="alert alert-danger" role="alert">' . 'Güncellemek İstediğiz Değer Boş Olamaz<br>' . '</div>';
     } else {
         try {
@@ -25,9 +25,10 @@ if (isset($_POST['username'])) {
                 echo '<div class="alert alert-danger" role="alert"> Kullanıcı Adı Zaten Alınmış<br>' . '</div>';
             } else {
                 if ($user->updateUsername($username, $id_to_change)) {
-                    echo "updated";
+                    echo '<div class="alert alert-success" role="alert">' . 'Güncellendi<br>' . '</div>';
                 }
             }
+            redirect("change.php");
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
@@ -45,8 +46,10 @@ if (isset($_POST['password'])) {
             $query->execute();
             $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
             if ($user->updatePassword($password, $id_to_change)) {
-                echo "updated";
+                echo '<div class="alert alert-success" role="alert">' . 'Güncellendi<br>' . '</div>';
             }
+            redirect("change.php");
+
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
@@ -65,8 +68,11 @@ if (isset($_POST['firstname'])) {
             $query->execute();
             $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
             if ($user->updateFirstname($firstname, $id_to_change)) {
-                echo "updated";
+                echo '<div class="alert alert-success" role="alert">' . 'Güncellendi<br>' . '</div>';
+
             }
+            redirect("change.php");
+
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
@@ -85,8 +91,11 @@ if (isset($_POST['lastname'])) {
             $query->execute();
             $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
             if ($user->updateLastname($lastname, $id_to_change)) {
-                echo "updated";
+                echo '<div class="alert alert-success" role="alert">' . 'Güncellendi<br>' . '</div>';
+
             }
+            redirect("change.php");
+
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
@@ -104,8 +113,11 @@ if (isset($_POST['phone_number'])) {
             $query->execute();
             $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
             if ($user->updatePhone_number($phone_number, $id_to_change)) {
-                echo "updated";
+                echo '<div class="alert alert-success" role="alert">' . 'Güncellendi<br>' . '</div>';
+
             }
+            redirect("change.php");
+
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
@@ -129,9 +141,12 @@ if (isset($_POST['email'])) {
                 echo '<div class="alert alert-danger" role="alert"> Email Zaten Alınmış<br>' . '</div>';
             } else {
                 if ($user->updateEmail($email, $id_to_change)) {
-                    echo "updated";
+                    echo '<div class="alert alert-success" role="alert">' . 'Güncellendi<br>' . '</div>';
+
                 }
             }
+            redirect("change.php");
+
         } catch (PDOException $exception) {
             array_push($errors, $exception->getMessage());
         }
@@ -177,6 +192,9 @@ if (isset($_POST['email'])) {
                             <input type="submit" name="Güncelle" value="Güncelle" class="btn float-right login_btn">
                         </div>
                     </div>
+                </form>
+                <form action="" method="post">
+
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -185,66 +203,75 @@ if (isset($_POST['email'])) {
                         <div class="form-group">
                             <input type="submit" value="Güncelle" class="btn float-right login_btn">
                         </div>
-
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                        </div>
-                        <input type="text" class="form-control" name="firstname"
-                               placeholder="<?= $returned_row['firstname']; ?>">
-                        <div class="form-group">
-                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                        </div>
-
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                        </div>
-                        <input type="text" class="form-control" name="lastname"
-                               placeholder="<?= $returned_row['lastname']; ?>">
-                        <div class="form-group">
-                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                        </div>
-
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                        </div>
-                        <input type="text" class="form-control" name="phone_number"
-                               placeholder="<?= $returned_row['phone_number']; ?>">
-                        <div class="form-group">
-                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                        </div>
-
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
-                        </div>
-                        <input type="email" class="form-control" name="email"
-                               placeholder="<?= $returned_row['email']; ?>">
-                        <div class="form-group">
-                            <input type="submit" value="Güncelle" class="btn float-right login_btn">
-                        </div>
-
-                    </div>
-
-                    <div class="row align-items-center remember">
-                    </div>
-
                 </form>
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-center links">
-                    <a href="home.php">Anasayfan</a>
-                </div>
+                <form action="" method="post">
 
             </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                </div>
+                <input type="text" class="form-control" name="firstname"
+                       placeholder="<?= $returned_row['firstname']; ?>">
+                <div class="form-group">
+                    <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                </div>
+                </form>
+                <form action="" method="post">
+
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                </div>
+                <input type="text" class="form-control" name="lastname"
+                       placeholder="<?= $returned_row['lastname']; ?>">
+                <div class="form-group">
+                    <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                </div>
+                </form>
+                <form action="" method="post">
+
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                </div>
+                <input type="text" class="form-control" name="phone_number"
+                       placeholder="<?= $returned_row['phone_number']; ?>">
+                <div class="form-group">
+                    <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                </div>
+                </form>
+                <form action="" method="post">
+
+            </div>
+            <f class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                </div>
+                <input type="email" class="form-control" name="email"
+                       placeholder="<?= $returned_row['email']; ?>">
+                <div class="form-group">
+                    <input type="submit" value="Güncelle" class="btn float-right login_btn">
+                </div>
         </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-center links">
+                <a href="home.php">Anasayfan</a>
+            </div>
+
+        </div>
+        </form>
     </div>
+
+    <div class="row align-items-center remember">
+    </div>
+
+    </form>
+
+</div>
+</div>
 </div>
 </body>
 
