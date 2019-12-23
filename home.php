@@ -31,16 +31,13 @@ if (isset($_POST['takebook_id'])) {
         $query->execute();
         $returned_clashes_row = $query->fetch(PDO::FETCH_ASSOC);
         if ($book->takeBook($id_user, $id_books)) {
-            echo "updated";
+            echo '<h3>' . "Alındı" . '</h3>';
         }
     } catch (PDOException $exception) {
         array_push($errors, $exception->getMessage());
     }
 }
-if (isset($_POST['bookName'])) {
-    $bookName = $_POST['bookName'];
-    $book->searchBook($bookName);
-}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -52,27 +49,53 @@ if (isset($_POST['bookName'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<style>
+    body {
+        background-image: url("https://i.resimyukle.xyz/fCOPJ6.png");
+        background-color: #cccccc;
+    }
 
+    h3, p, h1 {
+        text-align: center;
+
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 15px;
+        text-align: center;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    input[type=button], input[type=submit], input[type=reset] {
+        background-color: red;
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+</style>
 <body>
 <h1>Giriş, <?= printf("Şuan Tarih: %s", Carbon::now()); ?></h1>
-<p>Welcome, <?= $returned_row['username']; ?>. <a href="?logout=true">Log out</a></p>
-<p>Kullanıcı Bilgilerini <a href="change.php">Düzenle!</a></p>
-<p>Kitap <a href="add_book.php">Ekle!</a></p>
+<h3>Hoş Geldin, <?= $returned_row['username']; ?>. <a href="?logout=true">Çıkış Yap</a></h3>
+<h3>Kullanıcı Bilgilerini <a href="change.php">Düzenle!</a></h3>
+<h3>Kitap <a href="add_book.php">Ekle!</a></h3>
 <form action="" method="post">
-    <div class="input-group form-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-        </div>
-        <input type="text" class="form-control" name="takebook_id" placeholder="Almak Istediginiz Kitap ID" required>
-    </div>
-    <div class="row align-items-center remember">
-    </div>
-    <div class="form-group">
-        <input type="submit" name="submit" value="Kitabı Al" class="btn float-right login_btn">
-    </div>
+    <input type="text" class="form-control" name="takebook_id" placeholder="Almak Istediginiz Kitap ID" required>
+    <input type="submit" name="submit" value="Kitabı Al" class="btn float-right login_btn">
 </form>
 
-
+<h1 style="text-align: left">Kullanıcıya Ait Kitaplar:</h1>
 </table>
 <table class="table table-striped">
     <thead>
@@ -129,19 +152,25 @@ if (isset($_POST['bookName'])) {
     <?php endfor; ?>
     </tbody>
 </table>
+
 <form action="" method="post">
-    <div class="input-group form-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-        </div>
-        <input type="text" class="form-control" name="bookName" placeholder="Kitap arama(ismi ile)" required>
-    </div>
-    <div class="row align-items-center remember">
-    </div>
-    <div class="form-group">
-        <input type="submit" name="submit" value="Ara" class="btn float-right login_btn">
-    </div>
+    <input type="text" class="form-control" name="bookName" placeholder="Kitap arama(ismi ile)" required>
+    <input type="submit" name="submit" value="Ara" class="btn float-right login_btn">
 </form>
+<?php
+if (isset($_POST['bookName'])) {
+    $bookName = $_POST['bookName'];
+    if ($book->searchBook($bookName)) {
+        echo '<h1 style="color: red">' . "Kitap bulundu! Kitaba ait bilgiler:". '</h1>';
+        foreach ($book->searchBook($bookName) as $key => $value) {
+            echo '<h3>' .$key. ':'. $value . '</h3>';
+
+        }
+    } else {
+        echo '<h1 style="color: red">' . "Bulunamadı" . '</h1>';
+    }
+
+} ?>
 </table>
 <table class="table table-striped">
     <thead>
@@ -154,6 +183,7 @@ if (isset($_POST['bookName'])) {
         <th>Kitap Şuan Kimde?</th>
     </tr>
     </thead>
+    <h1 style="text-align: left">Sistemde Bulunan Kitaplar:</h1>
     <tbody>
     <?php
     $limit = 10;
