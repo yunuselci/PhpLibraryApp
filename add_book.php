@@ -1,12 +1,17 @@
 <?php
 require_once 'db_connect.php';
 if (isset($_POST['submit'])) {
+    $sql = "SELECT * FROM users WHERE firstname=:firstname";
+    $query = $db_connect->prepare($sql);
+    $query->bindParam(':firstname', $_POST['firstname']);
+    $query->execute();
+    $returned_row = $query->fetch(PDO::FETCH_ASSOC);
+    $owner_id = $returned_row['id_users'];
+    $temp_owner_id = $returned_row['id_users'];
     $name = $_POST['name'] ?? null;
     $author = $_POST['author'] ?? null;
     $image_url = $_POST['image_url'] ?? null;
     $language = $_POST['language'] ?? null;
-    $owner_id = $_POST['owner_id'] ?? null;
-    $temp_owner_id = $_POST['temp_owner_id'] ?? null;
     $errors_from_post = [];
     if (!$name) {
         array_push($errors_from_post, "İsim");
@@ -40,7 +45,6 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-
 ?>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -106,19 +110,22 @@ if (isset($_POST['submit'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="owner_id" placeholder="Kitap sahibinin ID'si"
-                               required>
+                        <div class="custom-select" style="width:200px;">
+                            <select name="firstname">
+                                <?php
+                                $users = "SELECT * FROM users ORDER BY id_users";
+                                $query = $db_connect->prepare($users);
+                                $query->execute();
 
-                    </div>
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
+                                foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $item) {
+                                    ?>
+                                    <option value="<?php $item['firstname']; ?>"><?php echo $item["firstname"]; ?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
                         </div>
-                        <input type="text" class="form-control" name="temp_owner_id"
-                               placeholder="Kitap Şuan Kimde ?(ID)" required>
-
                     </div>
-
                     <div class="row align-items-center remember">
                     </div>
                     <div class="form-group">
