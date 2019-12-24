@@ -1,17 +1,12 @@
 <?php
 require_once 'db_connect.php';
 if (isset($_POST['submit'])) {
-    $sql = "SELECT * FROM users WHERE firstname=:firstname";
-    $query = $db_connect->prepare($sql);
-    $query->bindParam(':firstname', $_POST['firstname']);
-    $query->execute();
-    $returned_row = $query->fetch(PDO::FETCH_ASSOC);
-    $owner_id = $returned_row['id_users'];
-    $temp_owner_id = $returned_row['id_users'];
     $name = $_POST['name'] ?? null;
     $author = $_POST['author'] ?? null;
     $image_url = $_POST['image_url'] ?? null;
     $language = $_POST['language'] ?? null;
+    $owner_id = $_POST['id_users'] ?? null;
+    $temp_owner_id = $_POST['id_users'] ?? null;
     $errors_from_post = [];
     if (!$name) {
         array_push($errors_from_post, "İsim");
@@ -111,15 +106,14 @@ if (isset($_POST['submit'])) {
                             <span class="input-group-text"><i class="fas fa-info-circle"></i></span>
                         </div>
                         <div class="custom-select" style="width:200px;">
-                            <select name="firstname">
+                            <select name="id_users">
                                 <?php
                                 $users = "SELECT * FROM users ORDER BY id_users";
                                 $query = $db_connect->prepare($users);
                                 $query->execute();
-
                                 foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $item) {
                                     ?>
-                                    <option value="<?php $item['firstname']; ?>"><?php echo $item["firstname"]; ?></option>
+                                    <option value="<?php $item['id_users']; ?>"><?php echo $item["firstname"]; ?></option>
                                     <?php
                                 }
                                 ?>
